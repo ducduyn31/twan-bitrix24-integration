@@ -1,15 +1,25 @@
-import {Controller, Post, Req} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {AppService} from './app.service';
-import {Request} from 'express';
+import {WebHookEvent, WebhookRequest} from './dto/webhook.request';
+import {plainToClass} from 'class-transformer';
 
-@Controller()
+@Controller('callback')
 export class AppController {
     constructor(private readonly appService: AppService) {
     }
 
-    @Post('callback')
-    public onCompanyCreated(@Req() request: Request): void {
-        console.log(request.headers);
-        console.log(request.body);
+    @Post('company')
+    public onCompanyCreated(@Body() req: WebhookRequest): void {
+        const data = plainToClass(WebhookRequest, req);
+        if (data.event !== WebHookEvent.COMPANY_CREATED && data.event !== WebHookEvent.COMPANY_UPDATED) return;
+
+
+    }
+
+    @Post('deal')
+    public onDealUpdated(@Body() req: WebhookRequest): void {
+        const data = plainToClass(WebhookRequest, req);
+        if (data.event !== WebHookEvent.DEAL_CREATED && data.event !== WebHookEvent.DEAL_UPDATED) return;
+
     }
 }
