@@ -1,31 +1,56 @@
 import {Exclude, Expose} from 'class-transformer';
-import {tsTsxJsJsxRegex} from 'ts-loader/dist/constants';
+import {IsEnum} from 'class-validator';
 
-export class Company {
+export enum STAGE {
+    NEW = 'NEW',
+    PAPER = 'PREPARATION',
+    INVOICE = 'PREPAYMENT_INVOICE',
+    IN_PROGRESS = 'EXECUTING',
+    FINAL_INVOICE = 'FINAL_INVOICE',
+    WON = 'WON',
+    LOST = 'LOST',
+}
 
+export class Deal {
     @Exclude({ toPlainOnly: true })
     ID: string;
-
-    @Exclude({ toPlainOnly: true })
-    COMPANY_TYPE: string;
 
     @Exclude({ toPlainOnly: true })
     TITLE: string;
 
     @Exclude({ toPlainOnly: true })
-    LOGO: string;
+    TYPE_ID: string;
+
+    @Exclude({ toPlainOnly: true })
+    @IsEnum(STAGE)
+    STAGE_ID: STAGE;
+
+    @Exclude({ toPlainOnly: true })
+    PROBABILITY: number;
+
+    @Exclude({ toPlainOnly: true })
+    CURRENCY_ID: string;
+
+    @Exclude({ toPlainOnly: true })
+    OPPORTUNITY: number;
 
     @Exclude({ toPlainOnly: true })
     LEAD_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    HAS_PHONE: 'Y' | 'N';
+    COMPANY_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    HAS_EMAIL: 'Y' | 'N';
+    CONTACT_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    HAS_IMOL: 'Y' | 'N';
+    QUOTE_ID: string;
+
+    @Exclude({ toPlainOnly: true })
+    BEGINDATE: Date;
+
+    @Exclude({ toPlainOnly: true })
+    CLOSEDATE: Date;
 
     @Exclude({ toPlainOnly: true })
     ASSIGNED_BY_ID: string;
@@ -37,24 +62,6 @@ export class Company {
     MODIFY_BY_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    BANKING_DETAILS: string;
-
-    @Exclude({ toPlainOnly: true })
-    INDUSTRY: string;
-
-    @Exclude({ toPlainOnly: true })
-    REVENUE: string;
-
-    @Exclude({ toPlainOnly: true })
-    CURRENCY_ID: string;
-
-    @Exclude({ toPlainOnly: true })
-    EMPLOYEES: string;
-
-    @Exclude({ toPlainOnly: true })
-    COMMENTS: string;
-
-    @Exclude({ toPlainOnly: true })
     DATE_CREATE: Date;
 
     @Exclude({ toPlainOnly: true })
@@ -64,34 +71,43 @@ export class Company {
     OPENED: 'Y' | 'N';
 
     @Exclude({ toPlainOnly: true })
-    IS_MY_COMPANY: 'Y' | 'N';
+    CLOSED: 'Y' | 'N';
 
     @Exclude({ toPlainOnly: true })
-    ORIGINATOR_ID: string;
+    COMMENTS: string;
 
     @Exclude({ toPlainOnly: true })
-    ORIGIN_ID: string;
+    ADDITIONAL_INFO: string;
 
     @Exclude({ toPlainOnly: true })
-    ORIGIN_VERSION: string;
+    LOCATION_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    ADDRESS: string;
+    CATEGORY_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    UF_CRM_1622202552007: string;
+    STAGE_SEMANTIC_ID: string;
 
     @Exclude({ toPlainOnly: true })
-    UF_CRM_1622202651767: string[];
+    IS_NEW: 'Y' | 'N';
 
     @Expose()
     get id() {
-        return this.UF_CRM_1622202552007;
+        return this.ID;
     }
 
     @Expose()
-    get accounts() {
-        return this.UF_CRM_1622202651767;
+    get name() {
+        return this.TITLE;
     }
 
+    @Expose()
+    get stage() {
+        return this.STAGE_ID;
+    }
+
+    @Expose()
+    get companyId() {
+        return this.COMPANY_ID;
+    }
 }
