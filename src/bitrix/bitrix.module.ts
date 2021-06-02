@@ -1,6 +1,9 @@
-import {Module} from '@nestjs/common';
+import {HttpModule, Module} from '@nestjs/common';
+import {BitrixService} from './bitrix.service';
 
 @Module({
-    providers: [],
+    imports: [HttpModule],
+    providers: [BitrixService],
+    exports: [BitrixService],
 })
 export class BitrixModule {}
