@@ -18,7 +18,7 @@ export class Product {
     }
 
     @Expose()
-    get getAccount() {
+    get account() {
         if (this.name.startsWith('Account')) return this.name.split(' ')[1];
         return null;
     }

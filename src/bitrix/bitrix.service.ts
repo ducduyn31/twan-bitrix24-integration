@@ -1,12 +1,10 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {BITRIX_REST_ENDPOINT} from '../config';
-import * as url from 'url';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deal} from './interfaces/deal.interface';
 import {plainToClass} from 'class-transformer';
 import {Company} from './interfaces/company.interface';
-import {response} from 'express';
 import {Product} from './interfaces/product.interface';
 
 @Injectable()

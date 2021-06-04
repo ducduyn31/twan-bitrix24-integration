@@ -89,9 +89,4 @@ export class Company {
         return this.UF_CRM_1622202552007;
     }
 
-    @Expose()
-    get accounts() {
-        return this.UF_CRM_1622202651767;
-    }
-
 }
