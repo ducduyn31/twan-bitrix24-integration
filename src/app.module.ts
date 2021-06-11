@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {HttpModule, Module} from '@nestjs/common';
 import {AppController} from './app.controller';
 import {BitrixModule} from './bitrix/bitrix.module';
 import {CqrsModule} from '@nestjs/cqrs';
@@ -7,7 +7,7 @@ import {ClientsModule, Transport} from '@nestjs/microservices';
 import {KAFKA_BROKER, KAFKA_CLIENT_ID} from './config';
 
 @Module({
-    imports: [BitrixModule, CqrsModule, ClientsModule.register([
+    imports: [BitrixModule, CqrsModule, HttpModule, ClientsModule.register([
         {
             name: 'KAFKA_SERVICE',
             transport: Transport.KAFKA,
