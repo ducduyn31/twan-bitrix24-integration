@@ -4,7 +4,11 @@ import {BitrixModule} from './bitrix/bitrix.module';
 import {CqrsModule} from '@nestjs/cqrs';
 import {CommandHandlers} from './handlers';
 import {ClientsModule, Transport} from '@nestjs/microservices';
-import {KAFKA_BROKER, KAFKA_CLIENT_ID} from './config';
+import {Config} from './config';
+import {EtcdModule} from 'nestjs-etcd3';
+import {join} from 'path';
+
+const {KAFKA_BROKER, BITRIX_SERVER_KAFKA_CLIENT_ID: KAFKA_CLIENT_ID} = Config
 
 @Module({
     imports: [BitrixModule, CqrsModule, HttpModule, ClientsModule.register([
@@ -21,8 +25,18 @@ import {KAFKA_BROKER, KAFKA_CLIENT_ID} from './config';
                     allowAutoTopicCreation: true,
                 }
             }
+        },
+        {
+            name: 'ORAY_PACKAGE',
+            transport: Transport.GRPC,
+            options: {
+                package: 'oray',
+                protoPath: join(__dirname, 'proto/oray.proto'),
+            }
         }
-    ])],
+    ]), EtcdModule.root({
+        hosts: 'http://etcd:2379',
+    })],
     controllers: [AppController],
     providers: [...CommandHandlers],
 })

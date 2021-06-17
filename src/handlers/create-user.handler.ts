@@ -3,15 +3,20 @@ import {CreateUserCommand} from '../commands/create-user.command';
 import {Inject, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
 import {ClientKafka} from '@nestjs/microservices';
 import {BitrixService} from '../bitrix/bitrix.service';
-import {KAFKA_CREATE_USER_TOPIC} from '../config';
+import {Config} from '../config';
 import {CreateUserInterface} from '../dto/create-user.interface';
 import {map} from 'rxjs/operators';
 import {generate} from 'generate-password';
 
+const {KAFKA_CREATE_USER_TOPIC} = Config;
+
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand>, OnModuleDestroy, OnModuleInit {
 
-    constructor(@Inject('KAFKA_SERVICE') private readonly kafka: ClientKafka, private readonly bitrix: BitrixService) {
+    constructor(
+        @Inject('KAFKA_SERVICE') private readonly kafka: ClientKafka,
+        private readonly bitrix: BitrixService
+    ) {
     }
 
     async execute(command: CreateUserCommand): Promise<any> {

@@ -1,4 +1,6 @@
-export const BITRIX_REST_ENDPOINT = 'https://techqila.bitrix24.com/rest/5/x2c5dvs22c5pj2dy/';
-export const KAFKA_BROKER = 'kafka:29092';
-export const KAFKA_CLIENT_ID = 'bitrix-service';
-export const KAFKA_CREATE_USER_TOPIC = 'user.create';
+export const Config = {
+    BITRIX_REST_ENDPOINT: undefined,
+    KAFKA_BROKER: undefined,
+    BITRIX_SERVER_KAFKA_CLIENT_ID: undefined,
+    KAFKA_CREATE_USER_TOPIC: undefined,
+}

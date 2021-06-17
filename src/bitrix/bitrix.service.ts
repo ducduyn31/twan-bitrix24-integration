@@ -1,11 +1,13 @@
 import {HttpService, Injectable} from '@nestjs/common';
-import {BITRIX_REST_ENDPOINT} from '../config';
+import {Config} from '../config';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deal} from './interfaces/deal.interface';
 import {plainToClass} from 'class-transformer';
 import {Company} from './interfaces/company.interface';
 import {Product} from './interfaces/product.interface';
+
+const {BITRIX_REST_ENDPOINT} = Config;
 
 @Injectable()
 export class BitrixService {

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package oray;
+
+service OrayNetworkService {
+    rpc CreateNetwork(CreateNetworkPayload) returns (string);
+}
+
+message CreateNetworkPayload {
+    string name = 1;
+    int32 type = 2;
+}
