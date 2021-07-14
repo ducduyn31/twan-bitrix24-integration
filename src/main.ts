@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const etcdService = app.get(EtcdService);
+  Object.keys(Config).forEach(key => etcdService.getClient().get(key).string().then(value => Config[key] = value));
   Object.keys(Config).forEach(key => etcdService.watch(key).subscribe(value => Config[key] = value));
 
   app.useGlobalPipes(new ValidationPipe());

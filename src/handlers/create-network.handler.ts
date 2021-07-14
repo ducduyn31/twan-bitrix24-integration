@@ -1,6 +1,6 @@
 import {CreateNetworkCommand} from '../commands/create-network.command';
 import {CommandHandler, ICommandHandler} from '@nestjs/cqrs';
-import {HttpService, Inject, OnModuleInit} from '@nestjs/common';
+import {Inject, OnModuleInit} from '@nestjs/common';
 import {BitrixService} from '../bitrix/bitrix.service';
 import {OrayService} from '../dto/oray-service.interface';
 import {ClientGrpc} from '@nestjs/microservices';
@@ -12,23 +12,16 @@ export class CreateNetworkHandler implements ICommandHandler<CreateNetworkComman
 
     constructor(
         @Inject('ORAY_PACKAGE') private readonly grpcClient: ClientGrpc,
-        private readonly http: HttpService,
         private readonly bitrix: BitrixService,
     ) {
     }
 
     async execute(command: CreateNetworkCommand): Promise<any> {
-        // return await this.http.post('product/network/create', {
+        // this.bitrix.getProducts(command.fromDeal.id)
+        // return this.orayService.createNetwork({
         //     name: 'Default',
         //     type: 0,
-        //     networkid: null,
-        // }, {
-        //     baseURL: 'https://pgy-api.oray.com/'
         // }).toPromise();
-        return this.orayService.createNetwork({
-            name: 'Default',
-            type: 0,
-        }).toPromise();
     }
 
     onModuleInit(): any {

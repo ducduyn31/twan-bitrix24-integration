@@ -3,10 +3,14 @@ syntax = "proto3";
 package oray;
 
 service OrayNetworkService {
-    rpc CreateNetwork(CreateNetworkPayload) returns (string);
+  rpc CreateNetwork(CreateNetworkPayload) returns (NetworkIdResponse);
 }
 
 message CreateNetworkPayload {
-    string name = 1;
-    int32 type = 2;
+  string name = 1;
+  int32 type = 2;
+}
+
+message NetworkIdResponse {
+  string networkId = 10;
 }
